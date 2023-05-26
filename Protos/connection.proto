@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package vikingentity.server.proto.connection;
+
+option csharp_namespace = "VikingEntity.Server.Protos.Connection";
+
+service Connection{
+  rpc CheckServerConnection (G_ConnectCheckRequest) returns (G_ConnectCheckResponse);
+}
+
+message G_ConnectCheckRequest{}
+
+message G_ConnectCheckResponse{
+  google.protobuf.Timestamp ServerTime = 1;
+}

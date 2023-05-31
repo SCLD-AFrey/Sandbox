@@ -1,0 +1,89 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package vikingentity.server.proto.usermanager;
+
+option csharp_namespace = "VikingEntity.Server.Protos.UserManager";
+
+service UserManagerRpc{
+    rpc Login(G_LoginRequest) returns (G_LoginResponse);
+    rpc GetUser(G_GetUserRequest) returns (G_GetUserResponse);
+    rpc CreateUser(G_CreateUserRequest) returns (G_CreateUserResponse);
+    rpc ModifyUser(G_ModifyUserRequest) returns (G_ModifyUserResponse);
+}
+
+message G_ModifyUserRequest{
+  G_User user = 1;
+}
+
+message G_ModifyUserResponse{
+  oneof result{
+    G_ModifyUserResponse_Success success = 1;
+    G_Response_Failure failure = 2;
+  }
+}
+
+message G_ModifyUserResponse_Success{
+  G_User user = 1;
+}
+
+message G_GetUserRequest{
+    string username = 1;
+}
+
+message G_GetUserResponse{
+  oneof result{
+    G_GetUserResponse_Success success = 1;
+    G_Response_Failure failure = 2;
+  }
+}
+
+message G_GetUserResponse_Success{
+  G_User user = 1;
+}
+
+message G_CreateUserRequest{
+    string username = 1;
+    string password = 2;
+}
+
+message G_CreateUserResponse{
+  oneof result{
+    G_CreateUserResponse_Success success = 1;
+    G_Response_Failure failure = 2;
+  }
+}
+
+message G_CreateUserResponse_Success{
+  G_User user = 1;
+}
+
+message G_User{
+  int32 oid = 1;
+  string username = 2;
+  string password = 3;
+  string token = 4;
+  bool isActive = 5;
+}
+
+message G_LoginRequest{
+    string username = 1;
+    string password = 2;
+}
+
+message G_LoginResponse{
+  oneof result{
+    G_LoginResponse_Success success = 1;
+    G_Response_Failure failure = 2;
+  }
+  google.protobuf.Timestamp ServerTime = 3;
+}
+
+message G_LoginResponse_Success{
+  G_User user = 1;
+}
+
+message G_Response_Failure{
+  string message = 1;
+}

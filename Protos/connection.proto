@@ -6,7 +6,7 @@ package vikingentity.server.proto.connection;
 
 option csharp_namespace = "VikingEntity.Server.Protos.Connection";
 
-service Connection{
+service ConnectionRpc{
   rpc CheckServerConnection (G_ConnectCheckRequest) returns (G_ConnectCheckResponse);
 }
 

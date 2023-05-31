@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Grpc.Core;
-using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using VikingEntity.Server.Protos.Connection;
 
@@ -11,32 +9,22 @@ namespace VikingEnterprise.Client.Models;
 public class ServerConnection
 {
     private readonly ClientConfiguration m_clientConfiguration;
-    private ILogger<ServerConnection> m_logger;
-    public ServerConnection(ClientConfiguration p_clientConfiguration, ILogger<ServerConnection> p_logger)
+    private readonly ILogger<ServerConnection> m_logger;
+    private readonly RpcClientFactory m_rpcClientFactory;
+    public ServerConnection(ClientConfiguration p_clientConfiguration, ILogger<ServerConnection> p_logger, RpcClientFactory p_rpcClientFactory)
     {
         m_clientConfiguration = p_clientConfiguration;
         m_logger = p_logger;
+        m_rpcClientFactory = p_rpcClientFactory;
         m_logger.LogDebug("Initializing ServerConnection");
     }
 
-    public Connection.ConnectionClient ConnectionClient(ProvisionClientType p_provisionClientType)
+    public Task<string> CheckAsync()
     {
-        var channel = GrpcChannel.ForAddress($"https://{m_clientConfiguration.ServerAddress}:{m_clientConfiguration.Port}");
-        
-        var client = p_provisionClientType switch
-        {
-            ProvisionClientType.Connection => new Connection.ConnectionClient(channel),
-            _ => throw new ArgumentOutOfRangeException(nameof(p_provisionClientType), p_provisionClientType, null)
-        };
-        
-        return client;
-    }
-    public string CheckServerConnection()
-    {
-        var message = string.Empty;
+        string message;
         try
         {
-            var client = ConnectionClient(ServerConnection.ProvisionClientType.Connection);
+            var client = m_rpcClientFactory.ConnectionRpcClient();
             var response = client.CheckServerConnection(new G_ConnectCheckRequest());
             m_clientConfiguration.IsConnected = true;
             message = $"Online - {response.ServerTime.ToDateTime().ToUniversalTime():G}";
@@ -49,12 +37,7 @@ public class ServerConnection
         // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
         m_logger.LogDebug(message: message);
 
-        return message;
-    }
-    
-    public enum ProvisionClientType
-    {
-        Connection
+        return Task.FromResult(message);
     }
     
     

@@ -4,7 +4,7 @@ using VikingEntity.Server.Protos.Connection;
 
 namespace VikingEnterprise.Server.Services.Grpc;
 
-public class ConnectionService : Connection.ConnectionBase
+public class ConnectionService : ConnectionRpc.ConnectionRpcBase
 {
     public override Task<G_ConnectCheckResponse> CheckServerConnection(G_ConnectCheckRequest p_request, ServerCallContext p_context)
     {

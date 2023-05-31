@@ -9,5 +9,6 @@ public class MainApplicationViewModel : ViewModelBase
     public MainApplicationViewModel(ILogger<MainWindowViewModel> p_logger)
     {
         m_logger = p_logger;
+        m_logger.LogDebug("Initializing MainApplicationViewModel");
     }
 }

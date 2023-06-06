@@ -1,0 +1,97 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:VikingEnterprise.Client.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:VikingEnterprise.Client.ViewModels"
+        xmlns:mainApplication="clr-namespace:VikingEnterprise.Client.Views.MainApplication"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="VikingEnterprise.Client.Views.MainWindowView"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="VikingEnterprise.Client">
+
+    <Design.DataContext>
+        <!-- ReSharper disable once Xaml.ConstructorWarning -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <Panel Grid.Column="0" HorizontalAlignment="Right" IsVisible="{Binding ShowLogin}">
+                <Grid ColumnDefinitions="Auto, Auto, Auto">
+                    <TextBox Width="100" Grid.Column="0" 
+                             Text="{Binding UserName}" />
+                    <TextBox Width="100" Grid.Column="1" 
+                             Text="{Binding UserPassword}" />
+                    <Button Grid.Column="2" Content="Login" 
+                            Command="{Binding OnLoginClick}" />
+                </Grid>
+            </Panel>
+            
+            <Panel Grid.Column="0" HorizontalAlignment="Right" IsVisible="{Binding !ShowLogin}">
+                <Grid ColumnDefinitions="Auto, Auto">
+                    <TextBlock Grid.Column="0" 
+                               Text="{Binding UserName}" />
+                    <Button Grid.Column="1" Content="Logout" 
+                            Command="{Binding OnLogoutClick}" />
+                </Grid>
+            </Panel>
+            
+            <Panel Grid.Column="1" HorizontalAlignment="Right" Width="200">
+                <TextBlock HorizontalAlignment="Right" 
+                           Text="{Binding TitleMessage}"/>
+            </Panel>
+
+        </Grid>
+        
+        <!-- Main Area -->
+
+        <Carousel Grid.Row="1" ZIndex="0"
+                  IsVirtualized="True"
+                  SelectedIndex="{Binding SelectedPageIndex, Mode=TwoWay}">
+            <Carousel.PageTransition>
+                <CrossFade Duration="0.25" />
+            </Carousel.PageTransition>
+            <ContentControl Content="{Binding MainApplicationView}" />
+        </Carousel>
+
+        <!-- Main Area -->
+        
+        
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            
+            <Panel Grid.Column="0">
+                <TextBlock Text="{Binding StatusDisplay}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </Panel>
+            
+            <Panel Grid.Column="1" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding OnlineMessage}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Panel>
+            <Panel Grid.Column="2" HorizontalAlignment="Right">
+                <Button Content="Connect" 
+                        Command="{Binding OnConnectClick}" />
+            </Panel>
+        </Grid>
+        
+    </Grid>
+    
+    
+
+
+</Window>

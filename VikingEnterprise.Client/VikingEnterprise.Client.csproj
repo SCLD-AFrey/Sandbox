@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**" />
+        <None Remove=".gitignore" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <TrimmerRootDescriptor Include="Roots.xml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MessageBox.Avalonia" Version="2.1.0" />
+        <PackageReference Include="Microsoft.NETCore.Targets" Version="5.0.0" PrivateAssets="all" />
+        <PackageReference Include="Aura.UI" Version="0.1.4.2" />
+        <PackageReference Include="Aura.UI.FluentTheme" Version="0.1.4.2" />
+        <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.10.18" />
+        <PackageReference Include="Avalonia.Xaml.Interactivity" Version="0.10.18" />
+        <PackageReference Include="Google.Protobuf" Version="3.19.4" />
+        <PackageReference Include="Grpc.Net.Client" Version="2.42.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.43.0" PrivateAssets="All" />
+        <PackageReference Include="Avalonia" Version="0.10.18" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.18" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="1.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+        <PackageReference Include="ReactiveUI.Fody" Version="17.1.50" />
+        <PackageReference Include="ReactiveUI.Validation" Version="2.2.1" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+        <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+        <PackageReference Include="System.Management" Version="7.0.0" />
+        <PackageReference Include="TextCopy" Version="6.1.0" />
+        <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <Protobuf Include="../Protos/connection.proto">
+            <Link>Protos/connection.proto</Link>
+            <GrpcServices>Client</GrpcServices>
+        </Protobuf>
+        <Protobuf Include="..\Protos\usermanager.proto">
+            <Link>Protos/usermanager.proto</Link>
+            <GrpcServices>Client</GrpcServices>
+        </Protobuf>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Models\Interceptors\" />
+    </ItemGroup>
+</Project>

@@ -2,17 +2,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:viewModels="clr-namespace:VikingEnterprise.Client.ViewModels.MainApplication"
-             x:Class="VikingEnterprise.Client.Views.MainApplication.MainApplicationView">
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VikingEnterprise.Client.Views.MainApplication.UserManagementView">
 
     <Design.DataContext>
         <!-- ReSharper disable once Xaml.ConstructorWarning -->
-        <viewModels:MainApplicationViewModel />
+        <viewModels:UserManagementViewModel />
     </Design.DataContext>
-    <UserControl.Template>
-        <ControlTemplate TargetType="UserControl">
-            <TextBlock Text="MainApplicationView"></TextBlock>
-        </ControlTemplate>
-    </UserControl.Template>
+    
+    <Grid>
+        <DataGrid Name="MyDataGrid" Items="{Binding Users}" >
+        </DataGrid>
+    </Grid>
+    
+    
+    
 </UserControl>

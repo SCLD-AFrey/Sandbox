@@ -9,9 +9,24 @@ option csharp_namespace = "VikingEntity.Server.Protos.UserManager";
 service UserManagerRpc{
     rpc Login(G_LoginRequest) returns (G_LoginResponse);
     rpc GetUser(G_GetUserRequest) returns (G_GetUserResponse);
+    rpc GetUsers(G_GetUsersRequest) returns (G_GetUsersResponse);
     rpc CreateUser(G_CreateUserRequest) returns (G_CreateUserResponse);
     rpc ModifyUser(G_ModifyUserRequest) returns (G_ModifyUserResponse);
 }
+
+message G_GetUsersRequest{}
+
+message G_GetUsersResponse{
+  oneof result{
+    G_GetUsersResponse_Success success = 1;
+    G_Response_Failure failure = 2;
+  }
+}
+
+message G_GetUsersResponse_Success{
+  repeated G_User users = 1;
+}
+
 
 message G_ModifyUserRequest{
   G_User user = 1;

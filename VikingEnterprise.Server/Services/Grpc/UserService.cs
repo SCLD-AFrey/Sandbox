@@ -19,6 +19,40 @@ public class UserService : UserManagerRpc.UserManagerRpcBase
          m_encryptionService = p_encryptionService;
      }
 
+     public override async Task<G_GetUsersResponse> GetUsers(G_GetUsersRequest p_request, ServerCallContext p_context)
+     {
+         var reply = new G_GetUsersResponse();
+
+         try
+         {
+             reply.Success = new G_GetUsersResponse_Success()
+             {
+                 Users =
+                 {
+                     await m_databaseInterface.ProvisionUnitOfWork().Query<User>().Select(p_user => new G_User()
+                     {
+                         Oid = p_user.Oid,
+                         Username = p_user.Username,
+                         IsActive = p_user.IsActive
+                     }).ToListAsync()
+                 }
+             };
+         } catch (RpcException e)
+         {
+             reply.Failure = new G_Response_Failure()
+             {
+                 Message = e.Message
+             };
+         } catch (Exception e)
+         {
+             reply.Failure = new G_Response_Failure()
+             {
+                 Message = e.Message
+             };
+         }
+
+         return await Task.FromResult(reply);
+     }
      public override async Task<G_ModifyUserResponse> ModifyUser(G_ModifyUserRequest p_request, ServerCallContext p_context)
      {
          var reply = new G_ModifyUserResponse();
@@ -52,7 +86,6 @@ public class UserService : UserManagerRpc.UserManagerRpcBase
 
          return await Task.FromResult(reply);
      }
-
      public override async Task<G_CreateUserResponse> CreateUser(G_CreateUserRequest p_request, ServerCallContext p_context)
      {
         var reply = new G_CreateUserResponse();
@@ -90,8 +123,6 @@ public class UserService : UserManagerRpc.UserManagerRpcBase
 
         return await Task.FromResult(reply);
      }
-
-
      public override async Task<G_LoginResponse> Login(G_LoginRequest p_request, ServerCallContext p_context)
      {
          var uow = m_databaseInterface.ProvisionUnitOfWork();
@@ -133,7 +164,7 @@ public class UserService : UserManagerRpc.UserManagerRpcBase
          var cred = user.UserCredentials
              .LastOrDefault(p_x => ReferenceEquals(p_x.User, user));
 
-         if (m_encryptionService.VerifyPassword(p_request.Password, cred.Password, cred.Salt))
+         if (m_encryptionService.VerifyPassword(p_request.Password, cred!.Password, cred.Salt))
          {
              reply.Success = new G_LoginResponse_Success()
              {
@@ -148,12 +179,11 @@ public class UserService : UserManagerRpc.UserManagerRpcBase
          {
              reply.Failure = new G_Response_Failure()
              {
-                 Message = "Unknown login error"
+                 Message = "Unable to verify password"
              };
          }
          return await Task.FromResult(reply);
      }
-
      public override async Task<G_GetUserResponse> GetUser(G_GetUserRequest p_request, ServerCallContext p_context)
      {
          var reply = new G_GetUserResponse();

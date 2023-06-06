@@ -1,6 +1,7 @@
 ﻿using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using VikingEntity.Server.Protos.Connection;
+using VikingEntity.Server.Protos.UserManager;
 
 
 namespace VikingEnterprise.Client.Models;
@@ -24,8 +25,8 @@ public class RpcClientFactory
         return new ConnectionRpc.ConnectionRpcClient(GrpcChannel.ForAddress(m_serverAddress));
     }
     
-    // public LoginRpc.LoginRpcClient LoginRpcClient()
-    // {
-    //     return new LoginRpc.LoginRpcClient(GrpcChannel.ForAddress(m_serverAddress));
-    // }
+    public UserManagerRpc.UserManagerRpcClient UserManagerRpcClient()
+     {
+         return new UserManagerRpc.UserManagerRpcClient(GrpcChannel.ForAddress(m_serverAddress));
+     }
 }

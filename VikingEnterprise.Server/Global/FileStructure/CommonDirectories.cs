@@ -7,7 +7,7 @@
             Directory.CreateDirectory(ServerDataPath);
         }
         public string ServerDataPath =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), ".VikingEnterprise.Worker");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), ".VikingEnterprise");
 
     }
 }

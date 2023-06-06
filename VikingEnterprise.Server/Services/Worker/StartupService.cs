@@ -32,6 +32,7 @@ public class StartupService
         var adminUser = new User(uow)
         {
             Username = "admin",
+            IsActive = true,
             UserCredentials = { new UserCredential(uow)
             {
                 DateAdded = DateTime.UtcNow,

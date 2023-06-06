@@ -8,7 +8,7 @@
         {
             m_commonDirectories = p_commonDirectories;
         
-            LogsPath   = Path.Combine(m_commonDirectories.ServerDataPath, "logs", "main.log");
+            LogsPath   = Path.Combine(m_commonDirectories.ServerDataPath, "logs", "worker.log");
             SettingsPath   = Path.Combine(m_commonDirectories.ServerDataPath, "settings", "settings.ini");
             DatabasePath   = Path.Combine(m_commonDirectories.ServerDataPath, "db", "data.db");
         

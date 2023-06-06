@@ -15,7 +15,7 @@ namespace VikingEnterprise.Client.Global.FileStructure
         {
             m_commonDirectories = p_commonDirectories;
 
-            LogsPath   = Path.Combine(m_commonDirectories.ServerDataPath, "logs", "main.log");
+            LogsPath   = Path.Combine(m_commonDirectories.ServerDataPath, "logs", "client.log");
             SettingsPath   = Path.Combine(m_commonDirectories.ServerDataPath, "settings", "settings.ini");
             DatabasePath   = Path.Combine(m_commonDirectories.ServerDataPath, "db", "data.db");
             ConfigPath   = Path.Combine(m_commonDirectories.ServerDataPath, "settings.config");

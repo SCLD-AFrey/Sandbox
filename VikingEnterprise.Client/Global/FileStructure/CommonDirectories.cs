@@ -10,7 +10,7 @@ namespace VikingEnterprise.Server.Global.FileStructure
             Directory.CreateDirectory(ServerDataPath);
         }
         public string ServerDataPath =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), ".VikingEnterprise.Client");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), ".VikingEnterprise");
 
     }
 }

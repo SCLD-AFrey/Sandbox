@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using VikingEnterprise.Client.Models;
+using VikingEnterprise.Client.Services;
 
 namespace VikingEnterprise.Client.ViewModels.MainApplication;
 

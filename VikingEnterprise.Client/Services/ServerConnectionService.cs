@@ -2,21 +2,22 @@
 using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using VikingEnterprise.Client.Models;
 using VikingEntity.Server.Protos.Connection;
 
-namespace VikingEnterprise.Client.Models;
+namespace VikingEnterprise.Client.Services;
 
-public class ServerConnection
+public class ServerConnectionService
 {
     private readonly ClientConfiguration m_clientConfiguration;
-    private readonly ILogger<ServerConnection> m_logger;
+    private readonly ILogger<ServerConnectionService> m_logger;
     private readonly RpcClientFactory m_rpcClientFactory;
-    public ServerConnection(ClientConfiguration p_clientConfiguration, ILogger<ServerConnection> p_logger, RpcClientFactory p_rpcClientFactory)
+    public ServerConnectionService(ClientConfiguration p_clientConfiguration, ILogger<ServerConnectionService> p_logger, RpcClientFactory p_rpcClientFactory)
     {
         m_clientConfiguration = p_clientConfiguration;
         m_logger = p_logger;
         m_rpcClientFactory = p_rpcClientFactory;
-        m_logger.LogDebug("Initializing ServerConnection");
+        m_logger.LogDebug("Initializing ServerConnectionService");
     }
 
     public Task<string> CheckAsync()

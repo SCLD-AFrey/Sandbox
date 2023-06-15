@@ -56,15 +56,25 @@
         </Grid>
         
         <!-- Main Area -->
+        
+        <Grid Grid.Row="1" ColumnDefinitions="Auto, *">
+        
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <Button Width="100" Content="Home" Command="{Binding OnNavigationClick}" CommandParameter="Home" />
+                <Button Width="100" Content="Users" Command="{Binding OnNavigationClick}" CommandParameter="UserManagement" />
+            </StackPanel>
 
-        <Carousel Grid.Row="1" ZIndex="0"
-                  IsVirtualized="True"
-                  SelectedIndex="{Binding SelectedPageIndex, Mode=TwoWay}">
-            <Carousel.PageTransition>
-                <CrossFade Duration="0.25" />
-            </Carousel.PageTransition>
-            <ContentControl Content="{Binding MainApplicationView}" />
-        </Carousel>
+            <Carousel Grid.Column="1" ZIndex="0"
+                      IsVirtualized="True"
+                      SelectedIndex="{Binding SelectedPageIndex, Mode=TwoWay}">
+                <Carousel.PageTransition>
+                    <CrossFade Duration="0.25" />
+                </Carousel.PageTransition>
+                <ContentControl Content="{Binding NavigationService.WelcomeView}" />
+                <ContentControl Content="{Binding NavigationService.MainApplicationView}" />
+                <ContentControl Content="{Binding NavigationService.UserManagementView}" />
+            </Carousel>
+        </Grid>
 
         <!-- Main Area -->
         

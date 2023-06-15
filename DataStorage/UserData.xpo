@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataBaseObjectModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="63851c86-a5b1-4311-8a83-51f7228baf9f" namespace="Sandbox.UserData" dataBaseShemaInfo="H4sIAAAAAAAEAMVWXU/bMBR9n7T/UPUZN3acODZKi6BlCG1DiMK0V39cQ7Q0QXHSsn8/Jy2FFtiGQOUt99xj+Z57jx2nB3ezvDeHymVlMeyTAe4fjD5/So+kg2ldVvIaTgtb9jyrcPt3zgz7N3V9ux8Ei8VisKCDsroOQoxJ8PP7t6m+gZnsr8nZv8koK1wtCw19v2uvl15KlYNrt+zie+QRcA+dyRmMrhxUafAQrynHRYuN6qqBNFgF6+Qkcy1wdWtkDSMrc+dJm+Cae9Jk5tSMqLBSYBUiaoVCkaQSCaIEIgmLk5BQrUicBivyevG4zJtZ4TaqfxH2iVbDMtkpK3yYBo/ADfLfJL5W5mOphibAhEmQDZVFURQnSLJYIaWZUjGPLMXkiVS/PHiD2lN3qOts/gFqmZJaS00RUcSrtRgjJUSCQogTS4nFsWb/rfY5dGXPV1l6XIGBos5kvhNzA000ZYwjy7BAkYh8D8JEI8Z5yHFiBJFPe/BWc+9+1NJYZS1WKGSg/aitQMqfX2QSongUUROS6L2NfS6dW5SV2b1aG0c65oYgr5OgiCuJJOUCUQGxJpwxauR7q53KvN69UkWlv5t4hDDplBKNuOYc0dASrq3wZ5q/t9KJL+bQGPiAwWqhLYsZRRGAv7E4ZkhqbFBiqA15omgo6LveWKv4gZK2LwMw51WpO7AXLOEfy2fEaALz47vbCpwb+D7JwTwMB2Svt0oP22jABnivN27yuqlgWEBTVzLf6503Ks/0V/h9Wf6CYqi4N3ASRybBGCLh/Xq/RbffOPenC1w7gItm3d3Uz+W8ApvdrepaQtPGbkAXMCvnsE1cotvcsX8Nja4KfSOL63bkXbxszXM1pL4zt1DV2QfX9kIZ6QkUUHl7jcvZzP9m3MqjT+AN8gRcdu0/v2TeClsrNnPdsgnk4I+Ic6XOZO1Hdr/mmUS34KzJ89ZmR3Aj51lZeRdZ2XT3yXbGv0+DrQfq6A8ibFhmyQoAAA==" generateConnectionHelper="true" generateStoredProcedures="false" fieldNameCase="Unchanged" generateDefaultConstructors="false" useNameOf="true" connectionStringName="Sandbox" createdInVersion="22.1.6.0" generateJsonSerializationContractResolver="false" generateServiceCollectionExtensions="false" lastModifiedInVersion="22.1.6.0" name="Sandbox" xmlns="http://schemas.microsoft.com/dsltools/ORMDataModel">
+  <classes>
+    <dataBaseObjectModelHasClasses Id="97facba1-957b-409a-ae39-d67a5e94efba">
+      <xpObject Id="39fa90b2-3f9b-4a3a-91b9-17657213cb15" name="User" baseClass="XPObject" userFileName="User" designerFileName="User.Designer" className="User" virtualName="User">
+        <fields>
+          <generalXpObjectHasFields Id="5142519b-670f-4e27-95d9-ce2f4264a6eb">
+            <field Id="d37e69d7-f2bf-4457-a65b-bc6bb584f301" name="Username" virtualColumnType="String" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="efe099a4-7bfa-4b3c-b858-5ecdaa3d7ef9">
+            <field Id="6baccac3-1b1f-4f00-b997-2e57f31f05c6" name="IsActive" columnType="Boolean" virtualColumnType="Boolean" delayedUpdateModifiedOnly="false" defaultValue="Boolean#True" />
+          </generalXpObjectHasFields>
+        </fields>
+        <saTargets>
+          <simpleAssociation Id="a1feb2bd-1734-4314-acd4-95e151859d27" sourceCollectionName="UserCredentials" name="UserCredentialReferencesUser" targetFieldName="User">
+            <xpObjectMoniker Id="e37c3668-f609-4940-b27c-6882807d91a6" />
+          </simpleAssociation>
+        </saTargets>
+        <collectionFields>
+          <xpObjectHasCollectionFields Id="86a6ba33-811d-4901-abc1-6bbb335aa1d2">
+            <collectionField Id="7b4c7139-4f6d-4917-8140-3bd83a510eb8" name="UserCredentials" />
+          </xpObjectHasCollectionFields>
+        </collectionFields>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+    <dataBaseObjectModelHasClasses Id="8b0df5d4-abf4-44c4-810c-ea4f35820681">
+      <xpObject Id="e37c3668-f609-4940-b27c-6882807d91a6" name="UserCredential" baseClass="XPObject" userFileName="UserCredential" designerFileName="UserCredential.Designer" className="UserCredential" virtualName="UserCredential">
+        <fields>
+          <generalXpObjectHasFields Id="67752b41-cfdc-40ce-9f0d-74946458f0bd">
+            <field Id="adfbff0b-26ec-4ff9-b176-d71b8443d214" name="User" virtualColumnType="User" logicalType="User" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="7b07c9ea-20cb-411c-aa94-e39d605f3e67">
+            <field Id="f54c58d1-ff91-48ba-a389-39e5c18663da" name="Password" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="Unlimited" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="6ad10a23-ad2e-46eb-8a68-28af738f9ea0">
+            <field Id="b3abc684-0191-481c-8c88-32f18cf9f008" name="Salt" columnType="ByteArray" virtualColumnType="ByteArray" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="421d3cbe-4aa4-4a3d-ba41-82ad5bc976e1">
+            <field Id="c9cf6563-4eef-4806-ac0d-7d3f287b3293" name="DateAdded" columnType="DateTime" virtualColumnType="DateTime" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+        </fields>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+  </classes>
+</dataBaseObjectModel>

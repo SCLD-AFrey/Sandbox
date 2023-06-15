@@ -171,7 +171,8 @@ public class UserService : UserManagerRpc.UserManagerRpcBase
                  User = new G_User()
                  {
                      Oid = user.Oid,
-                     Username = user.Username
+                     Username = user.Username,
+                     IsActive = user.IsActive
                  }
              };
          }

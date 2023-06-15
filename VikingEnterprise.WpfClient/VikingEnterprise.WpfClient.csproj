@@ -26,18 +26,15 @@
         <PackageReference Include="Google.Protobuf" Version="3.19.4" />
         <PackageReference Include="Grpc.Net.Client" Version="2.42.0" />
         <PackageReference Include="Grpc.Tools" Version="2.43.0" PrivateAssets="All" />
-        <PackageReference Include="Avalonia" Version="0.10.18" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
-        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.18" />
+        <PackageReference Include="Avalonia" Version="0.10.21" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.21" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.21" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.21" />
         <PackageReference Include="Material.Icons.Avalonia" Version="1.0.2" />
 
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.21" />
 
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.18" />
-        
-        
-        
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
@@ -50,6 +47,7 @@
         <PackageReference Include="TextCopy" Version="6.1.0" />
         <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     </ItemGroup>
+
     <ItemGroup>
         <Protobuf Include="../Protos/connection.proto">
             <Link>Protos/connection.proto</Link>
@@ -60,7 +58,11 @@
             <GrpcServices>Client</GrpcServices>
         </Protobuf>
     </ItemGroup>
+
     <ItemGroup>
-      <Folder Include="Models\Interceptors\" />
+      <Compile Update="Views\Workspace\MainWorkspaceView.axaml.cs">
+        <DependentUpon>MainWorkspaceView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>

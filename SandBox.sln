@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VikingEnterprise.Client", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VikingEnterprise.Server", "VikingEnterprise.Server\VikingEnterprise.Server.csproj", "{C4917A3B-3049-4034-8D75-31A01F550588}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VikingEnterprise.WpfClient", "VikingEnterprise.WpfClient\VikingEnterprise.WpfClient.csproj", "{80049491-6FDC-43FD-84C7-6E38D0D13B33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C4917A3B-3049-4034-8D75-31A01F550588}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4917A3B-3049-4034-8D75-31A01F550588}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4917A3B-3049-4034-8D75-31A01F550588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80049491-6FDC-43FD-84C7-6E38D0D13B33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80049491-6FDC-43FD-84C7-6E38D0D13B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80049491-6FDC-43FD-84C7-6E38D0D13B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80049491-6FDC-43FD-84C7-6E38D0D13B33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

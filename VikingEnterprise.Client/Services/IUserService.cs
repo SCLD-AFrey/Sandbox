@@ -17,4 +17,5 @@ public interface IUserService
     public Task<UserCredential> CreateUser(UserCredential p_userCredential, out string p_message);
 
     public Task<UserCredential> ModifyUser(UserCredential p_userCredential, out string p_message);
+    public List<UserCredential> UserCredentialRepo { get; }
 }

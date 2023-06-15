@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:VikingEnterprise.Client.ViewModels.MainApplication"
+             xmlns:common="clr-namespace:VikingEnterprise.Client.Views.Common"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VikingEnterprise.Client.Views.MainApplication.UserManagementView">
 
@@ -11,10 +12,26 @@
         <viewModels:UserManagementViewModel />
     </Design.DataContext>
     
-    <Grid>
-        <DataGrid Name="MyDataGrid" Items="{Binding Users}" >
-        </DataGrid>
-    </Grid>
+
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+            
+            <Grid RowDefinitions="Auto, *">
+                <TextBlock Grid.Row="0" DockPanel.Dock="Left" 
+                           FontWeight="SemiBold"
+                           FontSize="28"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{Binding PageHeaderText}"/>
+                <common:PageHeader Grid.Row="0" HeaderText="{Binding PageHeaderText}" />
+                <Grid Grid.Row="1">
+                    <DataGrid Name="MyDataGrid" AutoGenerateColumns="True" DataContext="{Binding UserService}" Items="{Binding UserCredentialRepo}" >
+                    </DataGrid>
+                </Grid>
+            </Grid>
+            
+        </ControlTemplate>
+    </UserControl.Template>
     
     
     

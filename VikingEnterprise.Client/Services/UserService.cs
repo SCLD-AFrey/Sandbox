@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HarfBuzzSharp;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using VikingEnterprise.Client.Models;
+using VikingEnterprise.Client.ViewModels;
+using VikingEnterprise.Client.ViewModels.MainApplication;
+using VikingEnterprise.Client.Views.MainApplication;
 using VikingEntity.Server.Protos.UserManager;
 
 namespace VikingEnterprise.Client.Services;
@@ -11,17 +16,22 @@ namespace VikingEnterprise.Client.Services;
 public class UserService : IUserService
 {
     private readonly ClientConfiguration m_clientConfiguration;
-    private readonly ILogger<ServerConnection> m_logger;
+    private readonly ILogger<ServerConnectionService> m_logger;
     private readonly RpcClientFactory m_rpcClientFactory;
     private readonly UserCredential m_userCredential;
+    private readonly IServiceProvider m_serviceProvider;
 
-    public UserService(ClientConfiguration p_clientConfiguration, ILogger<ServerConnection> p_logger, RpcClientFactory p_rpcClientFactory, UserCredential p_userCredential)
+    public UserService(ClientConfiguration p_clientConfiguration, ILogger<ServerConnectionService> p_logger, RpcClientFactory p_rpcClientFactory, UserCredential p_userCredential, IServiceProvider p_serviceProvider)
     {
         m_clientConfiguration = p_clientConfiguration;
         m_logger = p_logger;
         m_rpcClientFactory = p_rpcClientFactory;
         m_userCredential = p_userCredential;
+        m_serviceProvider = p_serviceProvider;
+        UserCredentialRepo = GetUsers(out string message).Result;
     }
+    
+    public List<UserCredential> UserCredentialRepo { get; set; } = new();
 
     public Task LoginUser(out string p_message)
     {

@@ -8,21 +8,14 @@ namespace VikingEnterprise.Client.ViewModels.MainApplication;
 
 public class UserManagementViewModel : ViewModelBase
 {
-    private readonly ServerConnection m_serverConnection;
-    // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-    private readonly IUserService m_userService;
+    private readonly ServerConnectionService m_ServerConnectionService;
 
-    public UserManagementViewModel(ILogger<UserManagementViewModel> p_logger, IUserService p_userService, ServerConnection p_serverConnection)
+    public UserManagementViewModel(ILogger<UserManagementViewModel> p_logger, IUserService p_userService, ServerConnectionService p_ServerConnectionService)
     {
-        m_userService = p_userService;
-        m_serverConnection = p_serverConnection;
+        UserService = p_userService;
+        m_ServerConnectionService = p_ServerConnectionService;
         p_logger.LogDebug("Initializing UserManagementViewModel");
-
-        Users = m_userService.GetUsers(out var message).Result;
-
-        SelectedUser = Users[0];
     }
-    
-    [Reactive] public List<UserCredential> Users { get; set; }
-    [Reactive] public UserCredential SelectedUser { get; set; } = new UserCredential();
+    [Reactive] public string PageHeaderText { get; set; } = "User Management";
+    public IUserService UserService { get; set; }
 }

@@ -44,10 +44,13 @@ public partial class App : Application
         p_services.AddSingleton<CommonFiles>();
         p_services.AddSingleton<ClientConfiguration>();
         p_services.AddSingleton<RpcClientFactory>();
-        p_services.AddSingleton<ServerConnection>();
+        p_services.AddSingleton<ServerConnectionService>();
         p_services.AddSingleton<IUserService, UserService>();
         p_services.AddSingleton<UserCredential>();
+        p_services.AddSingleton<NavigationService>();
 
+        p_services.AddSingleton<WelcomeViewModel>();
+        p_services.AddSingleton<WelcomeView>();
         
         p_services.AddSingleton<MainWindowModel>();
         p_services.AddSingleton<MainWindowViewModel>();

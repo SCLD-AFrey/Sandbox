@@ -189,23 +189,49 @@ public class UserService : UserManagerRpc.UserManagerRpcBase
      {
          var reply = new G_GetUserResponse();
          var uow = m_databaseInterface.ProvisionUnitOfWork();
-
-         if (p_request.Username.Trim().Length == 0)
+         var user = new User(uow);
+         switch (p_request.RequestCase)
          {
-             reply.Failure = new G_Response_Failure()
-             {
-                 Message = $"User '{p_request.Username}' is invalid"
-             };
+             case G_GetUserRequest.RequestOneofCase.ByUsername:
+                 if (string.IsNullOrEmpty(p_request.ByUsername.Username))
+                 {
+                     reply.Failure = new G_Response_Failure()
+                     {
+                         Message = $"User '{p_request.ByUsername.Username}' is invalid"
+                     };
+                 }
+                 user = uow.Query<User>()
+                     .FirstOrDefaultAsync(p_x => string.Equals(p_x.Username, p_request.ByUsername.Username, StringComparison.CurrentCultureIgnoreCase))
+                     .Result;
+                 break;
+             case G_GetUserRequest.RequestOneofCase.ByOid:
+                 if (p_request.ByOid.Oid <= 0)
+                 {
+                     reply.Failure = new G_Response_Failure()
+                     {
+                         Message = $"User ID '{p_request.ByOid.Oid}' is invalid"
+                     };
+                 }
+                 user = uow.Query<User>()
+                     .FirstOrDefaultAsync(p_x => p_x.Oid == p_request.ByOid.Oid)
+                     .Result;
+                 break;
+             case G_GetUserRequest.RequestOneofCase.None:
+                 reply.Failure = new G_Response_Failure()
+                 {
+                     Message = "Unknown request type"
+                 };
+                 break;
          }
-         var user = uow.Query<User>()
-             .FirstOrDefaultAsync(p_x => string.Equals(p_x.Username, p_request.Username, StringComparison.CurrentCultureIgnoreCase))
-             .Result;
+         
+         
+
          
          if (user == null)
          {
              reply.Failure = new G_Response_Failure()
              {
-                 Message = $"User '{p_request.Username}' not found"
+                 Message = $"User not found"
              };
          }
          

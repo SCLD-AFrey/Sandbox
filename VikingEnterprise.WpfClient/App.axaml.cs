@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -40,19 +41,9 @@ public partial class App : Application
 
     public override async void OnFrameworkInitializationCompleted()
     {
-
-        var filesService = m_appHost.Services.GetRequiredService<CommonFiles>();
-        var settingsService = m_appHost.Services.GetRequiredService<SettingsService>();
-        
-        settingsService.LoadSettings();
-
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Is(LogEventLevel.Debug)
-            .WriteTo.Sink(new CollectionSink())
-            .WriteTo.RollingFile(new JsonFormatter(), filesService.LogsPath, retainedFileCountLimit: 31)
-            .CreateLogger();
-
+        await InitializeApplication();
         await m_appHost.StartAsync();
+     
         if ( ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop )
         {
             desktop.ShutdownRequested += DesktopOnShutdownRequested;
@@ -60,6 +51,21 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+        
+    }
+
+    private async Task InitializeApplication()
+    {
+        var filesService = m_appHost.Services.GetRequiredService<CommonFiles>();
+        var settingsService = m_appHost.Services.GetRequiredService<SettingsService>();
+
+        await settingsService.LoadSettings();
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Is(LogEventLevel.Debug)
+            .WriteTo.Sink(new CollectionSink())
+            .WriteTo.RollingFile(new JsonFormatter(), filesService.LogsPath, retainedFileCountLimit: 31)
+            .CreateLogger();
         
     }
 

@@ -3,22 +3,28 @@ using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using VikingEnterprise.WpfClient.Models.Global;
+using VikingEnterprise.GuiClient.Models.Global;
 
-namespace VikingEnterprise.WpfClient.Services;
+namespace VikingEnterprise.GuiClient.Services;
 
 public class SettingsService
 {
-    private readonly ILogger<NavigationService> m_logger;
+    private readonly ILogger<SettingsService> m_logger;
     private readonly CommonFiles m_commonFiles;
 
-    public SettingsService(CommonFiles p_commonFiles, ILogger<NavigationService> p_logger)
+    public SettingsService(CommonFiles p_commonFiles, ILogger<SettingsService> p_logger)
     {
         m_commonFiles = p_commonFiles;
         m_logger = p_logger;
+        m_logger.LogInformation("SettingsService created");
     }
-
-    public ClientConfiguration ClientConfig { get; set; }
+    public ClientConfiguration ClientConfiguration { get; set; }
+    
+    public async Task SetCurrentUser(UserCredential p_userCredential)
+    {
+        ClientConfiguration.LastLogin = p_userCredential;
+        await SaveSettings();
+    }
     
     public async Task LoadSettings()
     {
@@ -31,11 +37,11 @@ public class SettingsService
         
             var configJson = JsonSerializer.Deserialize<ClientConfiguration>(await File.ReadAllTextAsync(m_commonFiles.ConfigPath));
 
-            ClientConfig = configJson 
-                           ?? throw new Exception($"Trouble deserializing the file at '{m_commonFiles.ConfigPath}'");
+            ClientConfiguration = configJson 
+                                  ?? throw new Exception($"Trouble deserializing the file at '{m_commonFiles.ConfigPath}'");
         } catch ( Exception ex )
         {
-            ClientConfig = new ClientConfiguration();
+            ClientConfiguration = new ClientConfiguration();
             m_logger.LogError(ex, "Error loading settings");
         }
 
@@ -46,17 +52,19 @@ public class SettingsService
         {
             if ( !File.Exists(m_commonFiles.ConfigPath) )
             {
-                var serializer = JsonSerializer.Serialize(new ClientConfiguration());
+                var serializer = JsonSerializer.Serialize(new ClientConfiguration(), new JsonSerializerOptions()
+                {
+                    WriteIndented = true
+                });
                 await File.WriteAllTextAsync(m_commonFiles.ConfigPath, serializer);
             }
             else
             {
-                ClientConfig.UserCredential.Password = "";
-                await File.WriteAllTextAsync(m_commonFiles.ConfigPath, JsonSerializer.Serialize(ClientConfig));
+                await File.WriteAllTextAsync(m_commonFiles.ConfigPath, JsonSerializer.Serialize(ClientConfiguration));
             }
         } catch ( Exception ex )
         {
-            ClientConfig = new ClientConfiguration();
+            ClientConfiguration = new ClientConfiguration();
             m_logger.LogError(ex, "Error saving settings");
         }
 

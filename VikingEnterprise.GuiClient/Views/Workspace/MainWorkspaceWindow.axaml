@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:VikingEnterprise.GuiClient.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:workspace="clr-namespace:VikingEnterprise.GuiClient.ViewModels.Workspace"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="VikingEnterprise.GuiClient.Views.Workspace.MainWorkspaceWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="{Binding ApplicationTitle}">
+
+    <Design.DataContext>
+        <!-- ReSharper disable once Xaml.ConstructorWarning -->
+        <workspace:MainWorkspaceViewModel/>
+    </Design.DataContext>
+    
+    <Grid ColumnDefinitions="Auto,*" RowDefinitions="*, Auto">
+        
+        <!-- Left Nav -->
+        <Border Grid.Column="0" Grid.Row="0">
+            <StackPanel Orientation="Vertical">
+                <Button Content="Home" Width="125" 
+                        Command="{Binding SetSelectedPageIndex}" 
+                        CommandParameter="Home" />
+                <Button Content="User Management" Width="125" 
+                        Command="{Binding SetSelectedPageIndex}" 
+                        CommandParameter="UserManagement" />
+                <Button Content="Login" Width="125" 
+                        Command="{Binding SetSelectedPageIndex}" 
+                        CommandParameter="Login" />
+                <Button Content="Logout" Width="125" 
+                        Command="{Binding OnLogoutClick}" />
+            </StackPanel>
+        </Border>
+        
+        <!-- Main Area -->
+        <Border Grid.Column="1" Grid.Row="0">
+            <Carousel Grid.Column="1" ZIndex="0"
+                      IsVirtualized="True"
+                      SelectedIndex="{Binding SelectedPageIndex, Mode=TwoWay}">
+                <Carousel.PageTransition>
+                    <CrossFade Duration="0.25" />
+                </Carousel.PageTransition>
+                <ContentControl Content="{Binding LoginView}" />
+                <ContentControl Content="{Binding HomeView}" />
+                <ContentControl Content="{Binding UserView}" />
+            </Carousel>
+        </Border>
+        
+        <!-- Bottom Bar -->
+        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+            
+        </Border>
+        
+        
+        
+        
+    </Grid>
+
+</Window>

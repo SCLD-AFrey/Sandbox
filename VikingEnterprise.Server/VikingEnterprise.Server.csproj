@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-VikingEnterprise.Server-010A413E-67E9-492B-BA2B-AD2FDAA44DC3</UserSecretsId>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+        <PackageReference Include="Microsoft.NETCore.Targets" Version="5.0.0" PrivateAssets="all" />
+        <PackageReference Include="DevExpress.Xpo" Version="22.2.6" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
+        <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+        <PackageReference Include="Serilog.Extensions.Logging.File" Version="3.0.0" />
+        <PackageReference Include="SimpleBase" Version="3.1.0" />
+        <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+        <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
+        <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+        <PackageReference Include="System.Management" Version="7.0.0" />
+        <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <Protobuf Include="../Protos/connection.proto">
+            <Link>Protos/connection.proto</Link>
+            <GrpcServices>Server</GrpcServices>
+        </Protobuf>
+        <Protobuf Include="..\Protos\usermanager.proto">
+            <Link>Protos/usermanager.proto</Link>
+            <GrpcServices>Server</GrpcServices>
+        </Protobuf>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\DataStorage\DataStorage.csproj" />
+    </ItemGroup>
+</Project>

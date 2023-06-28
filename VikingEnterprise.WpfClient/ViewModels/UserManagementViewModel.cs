@@ -7,7 +7,7 @@ public class UserManagementViewModel : ViewModelBase
 {
     private readonly ILogger<MainWorkspaceViewModel> m_logger;
 
-    public UserManagementViewModel(ILogger<MainWorkspaceViewModel> p_logger)
+    public UserManagementViewModel(ILogger<MainWorkspaceViewModel> p_logger) : base("UserManagementViewModel")
     {
         m_logger = p_logger;
     }

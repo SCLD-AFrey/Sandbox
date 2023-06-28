@@ -33,27 +33,42 @@
             <StackPanel Orientation="Horizontal" Grid.Column="4" HorizontalAlignment="Right" IsVisible="{Binding !IsLoggedIn}">
                 <TextBox Text="{Binding UserName, Mode=TwoWay}" Width="150" />
                 <TextBox Text="{Binding UserPassword, Mode=TwoWay}" Width="150" />
+                <CheckBox IsChecked="{Binding RequireLogin}" />
                 <Button Content="LOGIN" Command="{Binding OnLoginClick}" Width="100" />
             </StackPanel>
             
             <StackPanel Orientation="Horizontal" Grid.Column="4" HorizontalAlignment="Right" IsVisible="{Binding IsLoggedIn}">
                 <TextBox Text="{Binding UserName}" Width="150" IsEnabled="False" />
                 <TextBox Text="**************" Width="150" IsEnabled="False" />
+                <CheckBox IsChecked="{Binding RequireLogin}" IsEnabled="False" />
                 <Button Content="LOGOUT" Command="{Binding OnLogoutClick}" Width="100" />
             </StackPanel>
             
         </Grid>
         
-        <Carousel Grid.Row="1" ZIndex="0"
-                  IsVirtualized="True"
-                  SelectedIndex="{Binding SelectedPageIndex, Mode=TwoWay}">
-            <Carousel.PageTransition>
-                <CrossFade Duration="0.25" />
-            </Carousel.PageTransition>
-            <ContentControl Content="{Binding NavigationService.WelcomeView}" />
-            <ContentControl Content="{Binding NavigationService.MainApplicationView}" />
-            <ContentControl Content="{Binding NavigationService.UserManagementView}" />
-        </Carousel>
+        <Grid Grid.Row="1" ColumnDefinitions="Auto, *">
+            <StackPanel Grid.Column="0">
+                <Button Content="Main" Width="100" Height="50" Background="Blue" Foreground="Azure" 
+                        Command="{Binding OnNavClick}"
+                        CommandParameter="Main" />
+                <Button Content="Users" Width="100" Height="50" Background="Blue" Foreground="Azure"
+                        Command="{Binding OnNavClick}"
+                        CommandParameter="UserManagement" />
+            </StackPanel>
+            <Carousel Grid.Column="1" ZIndex="0"
+                      IsVirtualized="True"
+                      SelectedIndex="{Binding SelectedPageIndex, Mode=TwoWay}">
+                <Carousel.PageTransition>
+                    <CrossFade Duration="0.25" />
+                </Carousel.PageTransition>
+                <ContentControl Content="{Binding NavigationService.WelcomeView}" />
+                <ContentControl Content="{Binding NavigationService.MainApplicationView}" />
+                <ContentControl Content="{Binding NavigationService.UserManagementView}" />
+            </Carousel>
+        </Grid>
+        
+        
+
         
     </Grid>
 

@@ -7,7 +7,7 @@ public class MainApplicationViewModel : ViewModelBase
 {
     private readonly ILogger<MainWorkspaceViewModel> m_logger;
 
-    public MainApplicationViewModel(ILogger<MainWorkspaceViewModel> p_logger)
+    public MainApplicationViewModel(ILogger<MainWorkspaceViewModel> p_logger) : base("Main Application")
     {
         m_logger = p_logger;
     }

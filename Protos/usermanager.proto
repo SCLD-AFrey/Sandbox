@@ -44,8 +44,19 @@ message G_ModifyUserResponse_Success{
 }
 
 message G_GetUserRequest{
-    string username = 1;
+  oneof request{
+    G_GetUserRequest_Username ByUsername = 1;
+    G_GetUserRequest_Oid ByOid = 2;
+  }
 }
+
+message G_GetUserRequest_Username{
+  string username = 1;
+}
+message G_GetUserRequest_Oid{
+  int32 oid = 1;
+}
+
 
 message G_GetUserResponse{
   oneof result{
